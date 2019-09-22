@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+
+    <!-- BootStrap CSS-->>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" style="background:grey">
+        <h2>Subscriber Count</h2>
+        <h1 id="subscribers"></h1>
+    </div>
+    <script>
+      // "use strict" is being used here as the comment delimiter because that is the JS convention
+      "use strict"
+
+      // initialize subscribers
+      let subscribers = {};
+
+      // make websocket connection
+      const socket = new WebSocket("ws://localhost:8080/stats");
+      console.log("Attempting WebSocket connection ... ");
+
+      // listen for connected socket events and take some actions
+      socket.onopen = (event) => {
+        console.log("Socket connection successful:");
+      }
+
+      // event for when the websocket connection throws an error
+      socket.onerror = (err) => {
+        console.log("Socket connection error:", err);
+      }
+      
+      socket.onmessage = (event) => { // note that `event.data` replaces the deprecated alternative `msg`
+        subscribers = JSON.parse(event.data);
+        console.log(subscribers); 
+        document.getElementById("subscribers").innerText = subscribers.statistics.subscribercount;
+      }
+
+      // event for when websocket connection is closed
+      socket.onclose = (event) => {
+        console.log("Socket connection closed:", event);
+      }
+    </script>
+  </body>
+</html>
