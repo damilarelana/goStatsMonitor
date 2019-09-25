@@ -1,3 +1,5 @@
+### Stats Monitor
+
 A monitoring application that displays a Youtube channel's statistic
 ```
 Views count i.e. number of views
@@ -8,3 +10,5 @@ It consists of a simple frontend (index.html) that is feed with JSON data by a b
 * [Youtube's API](https://www.googleapis.com/youtube/v3/channels) [consumed via youtube.go]
 * Docker image [backend generated via Dockerfile]
 * [Gorilla Mux](http://www.gorillatoolkit.org/pkg/mux) [to handle endpoints resquest/dispatcher]
+
+[Go, Docker, API, JSON, Websocket]
